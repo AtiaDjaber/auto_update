@@ -1,6 +1,6 @@
 {
   "name": "auto_update",
-  "version": "3.3.0",
+  "version": "6.0.0",
   "private": true,
   "repository": {
     "type": "git",
@@ -9,7 +9,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
-    "build": "electron-builder build  --win --publish never",
+    "package": "vue-cli-service electron:build --publish always",
+    "build": "vue-cli-service electron:build",
     "deploy": "electron-builder build --win --publish always",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
