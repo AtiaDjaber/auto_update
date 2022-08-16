@@ -8,6 +8,7 @@ module.exports = {
         win: {
           target: ["nsis"],
           icon: "public/icon.ico",
+
           // "requestedExecutionLevel": "requireAdministrator"
         },
         nsis: {
