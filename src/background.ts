@@ -81,7 +81,7 @@ if (isDevelopment) {
   }
 }
 
-const server = 'https://auto-update4-gafc1eymv-atiadjaber.vercel.app/';
+const server = 'https://auto-updateas-8mav4riqx-atiadjaber.vercel.app';
 const url = `${server}/update/${process.platform}/${app.getVersion()}`;
 
 autoUpdater.setFeedURL({ url })
