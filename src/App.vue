@@ -28,7 +28,7 @@
         target="_blank"
         text
       >
-        <span class="mr-2">v6 old</span>
+        <span class="mr-2">Hot Release 7.0.0 </span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>

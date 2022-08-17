@@ -39,7 +39,7 @@ async function createWindow() {
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
-  
+
    win.once('ready-to-show', () => {
     autoUpdater.checkForUpdatesAndNotify();
   });
@@ -60,9 +60,7 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
+
 app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
@@ -93,14 +91,13 @@ autoUpdater.on('update-available', (_event:any, releaseNotes:any, releaseName:an
   // win.webContents.send('update_available');
     const dialogOpts = {
     type: 'info',
-    buttons: ['Restart', 'Later'],
+    buttons: ["OK"],
     title: 'Application Update',
     message: process.platform === 'win32' ? releaseNotes : releaseName,
-    detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+    detail: 'A new version available'
   }
-     dialog.showMessageBox(dialogOpts);
 
-  console.log('update-available');
+  dialog.showMessageBox(dialogOpts);
 
 });
 
