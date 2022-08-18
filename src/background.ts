@@ -24,8 +24,7 @@ async function createWindow() {
       
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: (process.env
-          .ELECTRON_NODE_INTEGRATION as unknown) as boolean,
+      nodeIntegration:true,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
     }
   })
@@ -40,9 +39,17 @@ async function createWindow() {
     win.loadURL('app://./index.html')
   }
 
+  
    win.once('ready-to-show', () => {
     autoUpdater.checkForUpdatesAndNotify();
-  });
+   });
+  // let progress=0;
+  //   const UPDATE_CHECK_INTERVAL =  10 * 1000
+  // setInterval(() => {
+  //   progress = progress + 6;
+  //   debugger
+  // win.webContents.send('download-progress', progress);
+  // }, UPDATE_CHECK_INTERVAL);
 }
 
 // Quit when all windows are closed.
@@ -87,15 +94,16 @@ if (isDevelopment) {
     })
   }
 }
+
 autoUpdater.on('update-available', (_event:any, releaseNotes:any, releaseName:any) => {
-  // win.webContents.send('update_available');
-    const dialogOpts = {
-    type: 'info',
-    buttons: ["OK"],
-    title: 'Application Update',
+
+   const dialogOpts = {
+        type: 'info',
+        buttons: ['Ok'],
+        title: `Update Not available for ${autoUpdater.channel}`,
     message: process.platform === 'win32' ? releaseNotes : releaseName,
     detail: 'A new version available'
-  }
+    };
 
   dialog.showMessageBox(dialogOpts);
 
@@ -127,6 +135,13 @@ autoUpdater.on("update-not-available", (_event:any) => {
         updateNotAvailable = true;
         dialog.showMessageBox(dialogOpts);
     }
+});
+
+autoUpdater.on('download-progress', (progress: any) => {
+
+  win.webContents.send('download-progress', progress.percent);
+
+  // ipcMain.emit('download-progress', progress.percent);  
 });
 
 

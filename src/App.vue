@@ -28,25 +28,43 @@
         target="_blank"
         text
       >
-        <span class="mr-2">Hot Release 7.0.0 </span>
+        <span class="mr-2">Hot Release 8.0.0</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-main>
+      <v-progress-linear
+        color="deep-orange"
+        height="6"
+        :value="progress"
+        reverse
+        striped
+      ></v-progress-linear>
       <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { Vue, Component } from "vue-property-decorator";
+import { ipcRenderer } from "electron";
 
-export default Vue.extend({
-  name: "App",
-
-  data: () => ({
-    //
-  }),
-});
+@Component({ components: {} })
+export default class App extends Vue {
+  progress = 0;
+  mounted() {
+    let progress = this.progress;
+    ipcRenderer.on("download-progress", function (evt, message) {
+      progress = message;
+      console.log(message);
+      (
+        document.getElementsByClassName(
+          "v-progress-linear__determinate"
+        )[0] as any
+      ).style.width = message + "%";
+      console.log("progress" + progress);
+    });
+  }
+}
 </script>
